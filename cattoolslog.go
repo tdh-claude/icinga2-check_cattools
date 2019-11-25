@@ -94,21 +94,21 @@ func (ctl *CatToolsLog) Load(host string, username string, password string, iden
 	}
 	client, err := ssh.Dial("tcp", fmt.Sprintf("%s:%d", host, port), config)
 	if err != nil {
-		fmt.Printf("%s | Error connecting SFTP server: %s\n", CRI, err)
+		fmt.Printf("%s Error connecting SFTP server: %s\n", CRI, err)
 		os.Exit(CRI_CODE)
 	}
 	defer client.Close()
 
 	sftpClient, err := sftp.NewClient(client)
 	if err != nil {
-		fmt.Printf("%s | Error connecting SFTP server: %s\n", CRI, err)
+		fmt.Printf("%s Error connecting SFTP server: %s\n", CRI, err)
 		os.Exit(CRI_CODE)
 	}
 	defer sftpClient.Close()
 
 	f, err := sftpClient.Open("/Device.Backup.Running Config.txt")
 	if err != nil {
-		fmt.Printf("%s | Error opening 'Device.Backup.Running Config.txt' file: %s\n", CRI, err)
+		fmt.Printf("%s Error opening 'Device.Backup.Running Config.txt' file: %s\n", CRI, err)
 		os.Exit(CRI_CODE)
 	}
 	defer f.Close()
@@ -191,14 +191,14 @@ func (ctl *CatToolsLog) ReturnResult() {
 	}
 	switch ctl.status {
 	case OK_CODE:
-		ctl.message = fmt.Sprintf("%s | %s", OK, ctl.message)
+		ctl.message = fmt.Sprintf("%s %s", OK, ctl.message)
 	case WAR_CODE:
-		ctl.message = fmt.Sprintf("%s | %s", WAR, ctl.message)
+		ctl.message = fmt.Sprintf("%s %s", WAR, ctl.message)
 	case CRI_CODE:
-		ctl.message = fmt.Sprintf("%s | %s", CRI, ctl.message)
+		ctl.message = fmt.Sprintf("%s %s", CRI, ctl.message)
 	default:
 		ctl.message = ""
-		ctl.message = fmt.Sprintf("%s | %s condition %s", UNK, UNK, ctl.message)
+		ctl.message = fmt.Sprintf("%s %s condition %s", UNK, UNK, ctl.message)
 	}
 	fmt.Println(ctl.message)
 	os.Exit(ctl.status)

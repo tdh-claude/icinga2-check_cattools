@@ -8,6 +8,7 @@ import (
 
 var (
 	arguments docopt.Opts
+	err       error
 
 	params struct {
 		host     string
@@ -41,6 +42,10 @@ Options:
 `
 
 	arguments, err = docopt.ParseDoc(usage)
+	if err != nil {
+		fmt.Printf("%s Error parsing command line arguments: %v", UNK, err)
+		os.Exit(UNK_CODE)
+	}
 
 	params.version, _ = arguments.Bool("--version")
 	params.port, _ = arguments.Int("--port")
