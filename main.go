@@ -59,7 +59,7 @@ Options:
 func main() {
 
 	if params.version {
-		fmt.Println("check_cattools version 0.0.0")
+		fmt.Println("check_cattools version 1.0.0")
 		os.Exit(0)
 	}
 

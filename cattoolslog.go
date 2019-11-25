@@ -155,6 +155,7 @@ func (ctl *CatToolsLog) Analyze(interval int) {
 			} else {
 				ctl.message = fmt.Sprintf("%s / %s not backuped for more than %d day(s)", ctl.message, key, interval)
 			}
+			continue
 		}
 		if log.backup != "OK" {
 			if ctl.status != CRI_CODE {
@@ -165,6 +166,7 @@ func (ctl *CatToolsLog) Analyze(interval int) {
 			} else {
 				ctl.message = fmt.Sprintf("%s / %s backup error: %s", ctl.message, key, log.backup)
 			}
+			continue
 		}
 		if log.changes == "Changed!" {
 			if ctl.message == "" {
